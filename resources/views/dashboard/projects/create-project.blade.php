@@ -28,9 +28,9 @@
 
             <div class="mt-4">
                 <label class="block text-gray-700 text-base font-bold mb-2" for="priority">Priority</label>
-                <x-forms.input-group id="low" label="Low" name="priority" type="radio"/>
-                <x-forms.input-group id="medium" label="Medium" name="priority" type="radio"/>
-                <x-forms.input-group id="high" label="High" name="priority" type="radio"/>
+                <x-forms.input-group id="low" label="Low" name="priority" type="radio" value="low" />
+                <x-forms.input-group id="medium" label="Medium" name="priority" type="radio" value="medium" />
+                <x-forms.input-group id="high" label="High" name="priority" type="radio" value="high" />
             </div>
 
             <x-forms.input-group 
