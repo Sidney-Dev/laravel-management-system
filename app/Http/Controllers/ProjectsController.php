@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ProjectCreation;
 use App\Models\Project;
 
 class ProjectsController extends Controller
@@ -14,16 +15,9 @@ class ProjectsController extends Controller
     }
 
     // save records of a project
-    public function store(Request $request) {
+    public function store(ProjectCreation $request) {
 
-        $validated_project = $request->validate([
-            'name' => 'required|max:100',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date',
-            'priority' => 'required'
-        ]);
-
-        $createdProject = Project::create($validated_project);
+        $createdProject = Project::create($request->validated());
 
         return $createdProject;
     }

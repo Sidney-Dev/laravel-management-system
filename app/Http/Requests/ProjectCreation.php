@@ -28,4 +28,5 @@ class ProjectCreation extends FormRequest
             'priority' => 'required'
         ];
     }
+
 }
