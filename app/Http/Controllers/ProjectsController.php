@@ -19,6 +19,13 @@ class ProjectsController extends Controller
 
         $createdProject = Project::create($request->validated());
 
-        return $createdProject;
+        return redirect()->withSuccess('Project successfully created')->route('project.index');
+    }
+
+    // displays all projects
+    public function index() {
+        $projects = Project::all();
+        
+        return $projects;
     }
 }

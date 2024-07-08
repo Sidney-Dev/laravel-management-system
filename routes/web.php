@@ -19,7 +19,8 @@ Route::prefix('dashboard')->group(function() {
     Route::view('/', 'dashboard.index');
 
     Route::prefix('projects')->group(function() {
-        Route::get('/', [ProjectsController::class, 'create'])->name('project.create');
+        Route::get('/', [ProjectsController::class, 'index'])->name('project.index');
+        Route::get('/create', [ProjectsController::class, 'create'])->name('project.create');
         Route::post('/', [ProjectsController::class, 'store'])->name('project.store');
     });
 
