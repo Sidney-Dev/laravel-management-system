@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="flex justify-between mb-4 items-center">
-    <h1 class="text-[32px] font-bold">Main content</h1>
+    <h1 class="text-[32px] font-bold">Projects</h1>
     <x-cta.link-primary text="Create Project" link="{{ route('project.create') }}" />
 </div>
 

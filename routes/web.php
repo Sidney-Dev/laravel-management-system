@@ -14,7 +14,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware('auth')->prefix('dashboard')->group(function() {
+Route::middleware(['auth', 'verified'])->prefix('dashboard')->group(function() {
     Route::view('/', 'dashboard.index')->name('dashboard');
 
     Route::prefix('projects')->group(function() {
