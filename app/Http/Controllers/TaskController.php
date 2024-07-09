@@ -35,7 +35,7 @@ class TaskController extends Controller
             $owner->notify(new TaskAssigned($task));
         }
 
-        return redirect()->route('project.edit', $task->project_id)->withSuccess('Task created successfully.');
+        return redirect()->route('task.index', $task->project_id)->withSuccess('Task created successfully.');
     }
 
     // displays information of a single task
