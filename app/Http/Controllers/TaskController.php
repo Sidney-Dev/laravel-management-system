@@ -13,6 +13,13 @@ use App\Notifications\TaskAssigned;
 class TaskController extends Controller
 {
 
+    // display the tasks that belong to the project parsed
+    public function index(Project $project)
+    {
+        $tasks = $project->tasks()->get();
+        return view('dashboard.tasks.index', compact('project', 'tasks'));
+    }
+
     public function create(Project $project)
     {
         $employees = User::all();
@@ -23,18 +30,30 @@ class TaskController extends Controller
     {
         $task = $project->tasks()->create($request->validated());
 
-        return $task;
-
         if ($task->owner_id) {
             $owner = User::find($task->owner_id);
             $owner->notify(new TaskAssigned($task));
         }
 
-        return redirect()->route('projects.show', $task->project_id)->withSuccess('Task created successfully.');
+        return redirect()->route('project.edit', $task->project_id)->withSuccess('Task created successfully.');
     }
 
+    // displays information of a single task
     public function show(Project $project, Task $task)
     {
-        return view('dashboard.tasks.show', compact('task'));
+        
+    }
+
+    public function edit(Project $project, Task $task)
+    {
+        return view('dashboard.tasks.update', compact('task'));
+    }
+
+    // delete a project task
+    public function delete(Request $request, Project $project, Task $task)
+    {
+        $task->delete();
+        
+        return redirect()->back()->withSuccess("task deleted");
     }
 }

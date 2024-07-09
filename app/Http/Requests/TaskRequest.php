@@ -33,6 +33,11 @@ class TaskRequest extends FormRequest
         ];
     }
 
+    /**
+     * @todo review
+     *
+     * @return void
+     */
     protected function prepareForValidation()
     {
         $this->merge([

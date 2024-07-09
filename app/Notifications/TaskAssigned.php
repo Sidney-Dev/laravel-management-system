@@ -16,7 +16,7 @@ class TaskAssigned extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct(Task $task)
+    public function __construct($task)
     {
         $this->task = $task;
     }
@@ -38,7 +38,7 @@ class TaskAssigned extends Notification
     {
         return (new MailMessage)
             ->line('You have been assigned a new task.')
-            ->action('View Task', route('task.show', $this->task->id))
+            ->action('View Task', route('task.show', [$this->task->project->id, $this->task->id]))
             ->line('Thank you for using our application!');
     }
 

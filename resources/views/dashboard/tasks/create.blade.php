@@ -7,7 +7,13 @@
         @csrf
 
         <div class="mt-2">
-            <x-forms.input-group id="name" label="Task Name" name="name" type="text" placeholder="Name of the task" />
+            <x-forms.input-group 
+            id="name" 
+            label="Task Name" 
+            name="name" 
+            type="text" 
+            placeholder="Name of the task"
+            value="{{ old('name') }}" />
             @error('name')
                 <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
             @enderror
@@ -21,20 +27,30 @@
                 type="textarea" 
                 placeholder="Optional description" 
                 cols="30" 
-                rows="10"   
-            />
+                rows="10"
+                value="{{ old('description') }}" />
         </div>
 
         <div class="mt-4">
             <div class="flex gap-1 w-full">
                 <div class="w-1/2">
-                    <x-forms.input-group id="start_date" label="Task Start Date" name="start_date" type="date" />
+                    <x-forms.input-group 
+                    id="start_date" 
+                    label="Task Start Date" 
+                    name="start_date" 
+                    type="date"
+                    value="{{ old('name') }}" />
                     @error('start_date')
                         <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
                     @enderror
                 </div>
                 <div class="w-1/2">
-                    <x-forms.input-group id="end_date" label="Task End Date" name="end_date" type="date" />
+                    <x-forms.input-group 
+                    id="end_date" 
+                    label="Task End Date" 
+                    name="end_date"
+                    type="date"
+                    value="{{ old('name') }}" />
                     @error('end_date')
                         <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
                     @enderror
