@@ -24,8 +24,9 @@ class ProjectsController extends Controller
 
     // displays all projects
     public function index() {
+
         $projects = Project::all();
         
-        return $projects;
+        return view('dashboard.projects.index')->with(['projects' => $projects]);
     }
 }

@@ -56,7 +56,8 @@
             />
 
             <div class="mt-2">
-                <button class="bg-purple-900 hover:bg-back text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Save</button>
+                <x-cta.button-primary text="Save"></x-cta.button-primary>
+                {{-- <button class="bg-purple-900 hover:bg-back text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Save</button> --}}
             </div>
         </form>
 
