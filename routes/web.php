@@ -22,6 +22,7 @@ Route::prefix('dashboard')->group(function() {
         Route::get('/', [ProjectsController::class, 'index'])->name('project.index');
         Route::get('/create', [ProjectsController::class, 'create'])->name('project.create');
         Route::post('/', [ProjectsController::class, 'store'])->name('project.store');
+        Route::delete('/{project}/delete', [ProjectsController::class, 'delete'])->name('project.delete');
     });
 
 });

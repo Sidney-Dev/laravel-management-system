@@ -17,9 +17,11 @@ class ProjectsController extends Controller
     // save records of a project
     public function store(ProjectCreation $request) {
 
+        // return $request->all();
+
         $createdProject = Project::create($request->validated());
 
-        return redirect()->withSuccess('Project successfully created')->route('project.index');
+        return redirect()->route('project.index')->withSuccess('Project successfully created');
     }
 
     // displays all projects
@@ -28,5 +30,14 @@ class ProjectsController extends Controller
         $projects = Project::all();
         
         return view('dashboard.projects.index')->with(['projects' => $projects]);
+    }
+
+    // deletes a single project
+    public function delete(Request $request, Project $project) {
+
+        $project->delete();
+        
+        return redirect()->back()->withSuccess("The Project was successfully deleted");
+
     }
 }

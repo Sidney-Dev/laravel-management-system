@@ -29,4 +29,15 @@ class ProjectCreation extends FormRequest
         ];
     }
 
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'priority.required' => 'Priority is a required field',
+        ];
+    }
 }

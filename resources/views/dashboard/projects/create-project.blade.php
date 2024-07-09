@@ -39,7 +39,7 @@
                 <label class="block text-gray-700 text-base font-bold mb-2" for="priority">Priority</label>
                 <x-forms.input-group id="low" label="Low" name="priority" type="radio" value="low" />
                 <x-forms.input-group id="medium" label="Medium" name="priority" type="radio" value="medium" />
-                <x-forms.input-group id="high" label="High" name="priority" type="radio" value="high" />
+                <x-forms.input-group id="urgent" label="Urgent" name="priority" type="radio" value="urgent" />
                 @error('priority')
                     <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
                 @enderror
@@ -56,7 +56,9 @@
             />
 
             <div class="mt-2">
-                <x-cta.button-primary text="Save"></x-cta.button-primary>
+                <div class="flex items-center">
+                    <x-cta.button-primary text="Save"></x-cta.button-primary>
+                </div>
                 {{-- <button class="bg-purple-900 hover:bg-back text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Save</button> --}}
             </div>
         </form>
