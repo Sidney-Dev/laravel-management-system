@@ -14,9 +14,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
-Route::prefix('dashboard')->group(function() {
-    Route::view('/', 'dashboard.index');
+Route::middleware('auth')->prefix('dashboard')->group(function() {
+    Route::view('/', 'dashboard.index')->name('dashboard');
 
     Route::prefix('projects')->group(function() {
         Route::get('/', [ProjectsController::class, 'index'])->name('project.index');
