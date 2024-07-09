@@ -23,6 +23,8 @@ Route::prefix('dashboard')->group(function() {
         Route::get('/create', [ProjectsController::class, 'create'])->name('project.create');
         Route::post('/', [ProjectsController::class, 'store'])->name('project.store');
         Route::delete('/{project}/delete', [ProjectsController::class, 'delete'])->name('project.delete');
+        Route::get('/{project}/edit', [ProjectsController::class, 'edit'])->name('project.edit');
+        Route::patch('/{project}/update', [ProjectsController::class, 'update'])->name('project.update');
     });
 
 });
