@@ -25,6 +25,9 @@
 
             <div class="flex-grow md:overflow-y-auto md:p-5">
 
+                @session('success')
+                    <p class="bg-green-500 text-white rounded-xl mb-2 py-2 px-4">{{ $value }}</p>
+                @endsession
                 <main>
                     @yield('content')
                 </main>
