@@ -56,4 +56,21 @@ class TaskController extends Controller
         
         return redirect()->back()->withSuccess("task deleted");
     }
+
+    // updated the task
+    public function update(Request $request, Project $project, Task $task)
+    {
+
+        $validated_task = $request->validate([
+            'name' => 'required|string|max:100',
+            'description' => 'nullable|string',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after:start_date',
+            'status' => 'required|in:pending,in progress,in review,done,needs assistance',
+        ]);
+
+        return $request->all();
+        
+        return redirect()->back()->withSuccess('Task updated successfully.');
+    }
 }

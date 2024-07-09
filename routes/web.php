@@ -30,6 +30,7 @@ Route::middleware(['auth', 'verified'])->prefix('dashboard')->group(function() {
         Route::get('/{project}/tasks/create', [TaskController::class, 'create'])->name('task.create');
         Route::get('/{project}/tasks/{task}', [TaskController::class, 'show'])->name('task.show');
         Route::delete('/{project}/tasks/{task}/delete', [TaskController::class, 'delete'])->name('task.delete');
+        Route::patch('/{project}/tasks/{task}/update', [TaskController::class, 'update'])->name('task.update');
         Route::get('/{project}/tasks', [TaskController::class, 'index'])->name('task.index');
         Route::post('/{project}/tasks', [TaskController::class, 'store'])->name('task.store');
     });
