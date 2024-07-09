@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectsController;
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -24,6 +25,10 @@ Route::middleware(['auth', 'verified'])->prefix('dashboard')->group(function() {
         Route::delete('/{project}/delete', [ProjectsController::class, 'delete'])->name('project.delete');
         Route::get('/{project}/edit', [ProjectsController::class, 'edit'])->name('project.edit');
         Route::patch('/{project}/update', [ProjectsController::class, 'update'])->name('project.update');
+
+        Route::get('/{project}/tasks/create', [TaskController::class, 'create'])->name('task.create');
+        Route::get('/{project}/tasks/{task}', [TaskController::class, 'show'])->name('task.show');
+        Route::post('/{project}/tasks', [TaskController::class, 'store'])->name('task.store');
     });
 
 });

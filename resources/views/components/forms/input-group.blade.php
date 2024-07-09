@@ -46,6 +46,7 @@
         id="{{ $id }}" 
         @isset($placeholder) placeholder="{{ $placeholder }}" @endisset
         @isset($value) value="{{ $value }}" @endisset
+    />
 @endif
 
 {{ $slot ?? '' }}
