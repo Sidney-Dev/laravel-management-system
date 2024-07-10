@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Role;
 
 class UserController extends Controller
 {
@@ -10,7 +11,8 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('dashboard.user.user-management', compact('users'));
+        $roles = Role::all();
+        return view('dashboard.user.user-management', compact('users', 'roles'));
     }
 
     // creates a new user
@@ -19,14 +21,15 @@ class UserController extends Controller
         $validated_data = $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
-            // 'role' => 'required',
+            'role' => 'required',
         ]);
 
-        /**
-         * @todo add temporary password
-         */
+        $user = User::create([
+            'name' => $validated_data["name"],
+            'email' => $validated_data["email"],
+        ]);
 
-        User::create($validated_data);
+        $user->roles()->attach($validated_data["role"]);
 
         return redirect()->route('users.index')->with('success', 'User added successfully');
     }

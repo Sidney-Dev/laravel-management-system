@@ -39,34 +39,49 @@
                 </tbody>
             </table>
         </div>
+
         <div class="mb-6 w-2/3">
             <h2 class="text-xl font-bold mb-2">Add New User</h2>
             <form action="{{ route('users.store') }}" method="POST" class="space-y-4">
                 @csrf
-                <x-forms.input-group
-                    id="name"
-                    label="Name"
-                    name="name"
-                    type="text"
-                    placeholder="Enter name"
-                    required
-                />
-                <x-forms.input-group
-                    id="email"
-                    label="Email"
-                    name="email"
-                    type="email"
-                    placeholder="Enter email"
-                    required
-                />
-                <x-forms.input-group
-                    id="role"
-                    label="Role"
-                    name="role"
-                    type="text"
-                    placeholder="Enter role"
-                    required
-                />
+                <div>
+                    <x-forms.input-group
+                        id="name"
+                        label="Name"
+                        name="name"
+                        type="text"
+                        placeholder="Enter name"
+                        value="{{ old('name') }}"
+                    />
+                    @error('name')
+                        <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div>
+                    <x-forms.input-group
+                        id="email"
+                        label="Email"
+                        name="email"
+                        type="email"
+                        placeholder="Enter email"
+                        value="{{ old('email') }}"
+                    />
+                    @error('email')
+                        <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div>
+                    <label for="role" class="block text-gray-700 text-base font-bold mb-2">Role</label>
+                    <select name="role" id="role" class="rounded-md border-transparent bg-slate-200 w-full focus:outline-none focus:shadow-outline">
+                        @foreach($roles as $role)
+                            <option value="{{ $role->id }}" class="capitalize">{{ $role->name }}</option>
+                        @endforeach
+                    </select>
+                    @error('role')
+                        <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
+                    @enderror
+                </div>
                 <x-cta.button-primary text="Add User" />
             </form>
         </div>
