@@ -20,7 +20,7 @@
             
         <div class="flex h-screen flex-col md:flex-row md:overflow-hidden bg-slate-100">
             <aside class="w-full flex-none md:w-64 m-5 mr-0 p-5 bg-purple-900 rounded-xl">
-                <h1>Sidebar</h1>
+                @include('partials.sidebar-nav')
             </aside>
 
             <div class="flex-grow md:overflow-y-auto md:p-5">
