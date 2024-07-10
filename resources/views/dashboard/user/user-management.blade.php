@@ -12,7 +12,7 @@
                     <tr class="bg-gray-200">
                         <th class="px-4 py-2 border-b border-gray-200 text-left text-gray-600">Name</th>
                         <th class="px-4 py-2 border-b border-gray-200 text-left text-gray-600">Email</th>
-                        {{-- <th class="px-4 py-2 border-b border-gray-200 text-left text-gray-600">Role</th> --}}
+                        <th class="px-4 py-2 border-b border-gray-200 text-left text-gray-600">Role</th>
                         <th class="px-4 py-2 border-b border-gray-200 text-left text-gray-600">Actions</th>
                     </tr>
                 </thead>
@@ -21,15 +21,19 @@
                     <tr>
                         <td class="px-4 py-2 border-b border-gray-200">{{ $user->name }}</td>
                         <td class="px-4 py-2 border-b border-gray-200">{{ $user->email }}</td>
-                        {{-- <td class="py-2 px-4 border-b">{{ $user->role }}</td> --}}
+                        <td class="py-2 px-4 border-b">
+                            @foreach ($user->roles as $role)
+                                {{ $role->name }}
+                            @endforeach
+                        </td>
                         <td class="px-4 py-2 border-b border-gray-200 flex">
-                            <x-cta.link-primary class="bg-transparent text-green-300 border-0" :link="route('users.edit', $user->id)">
+                            <x-cta.link-primary class="bg-transparent text-green-500" :link="route('users.edit', $user->id)">
                                 <x-icons.pencil></x-icons.pencil>
                             </x-cta.link-primary>
                             <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="inline">
                                 @csrf
                                 @method('DELETE')
-                                <x-cta.button-primary class="bg-transparent text-red-900 border-0">
+                                <x-cta.button-primary class="bg-transparent text-rose-600 border-none">
                                     <x-icons.trash></x-icons.trash>
                                 </x-cta.button-primary>
                             </form>

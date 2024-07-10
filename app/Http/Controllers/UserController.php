@@ -34,26 +34,38 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('success', 'User added successfully');
     }
 
+    // displays the screen where the user form is show for update
     public function edit(User $user)
     {
-        return view('dashboard.user.user-edit', compact('user'));
+        $roles = Role::all();
+
+        return view('dashboard.user.user-edit', compact('user', 'roles'));
     }
 
+    // updates the user information
     public function update(Request $request, User $user)
     {
-        $request->validate([
+        $validated_user = $request->validate([
             'name' => 'required',
             'email' => 'required|email',
             'role' => 'required',
         ]);
 
-        $user->update($request->all());
+        $user->name = $validated_user['name'];
+        $user->email = $validated_user['email'];
+
+        if($user->isDirty()) {
+            $user->save();
+        }
+
+        $user->roles()->sync($validated_user['role']);
 
         return redirect()->route('users.index')->with('success', 'User updated successfully');
     }
 
     public function destroy(User $user)
     {
+        $user->roles()->detach();
         $user->delete();
 
         return redirect()->route('users.index')->with('success', 'User deleted successfully');
