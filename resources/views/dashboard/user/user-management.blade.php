@@ -87,7 +87,7 @@
                         <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
                     @enderror
                 </div>
-                <x-cta.button-primary text="Add User" />
+                <x-cta.button-primary class="text-white" text="Add User" />
             </form>
         </div>
     </div>
