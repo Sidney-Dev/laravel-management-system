@@ -4,6 +4,10 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Laravel\Passport\Passport;
+use Illuminate\Support\Facades\View;
+use App\View\Composers\UserRolesComposer;
+
+use App\Models\User;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,5 +25,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Passport::enablePasswordGrant();
+        View::composer('*', UserRolesComposer::class);
     }
 }
