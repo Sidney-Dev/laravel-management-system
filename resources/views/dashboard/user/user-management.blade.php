@@ -78,6 +78,7 @@
                 <div>
                     <label for="role" class="block text-gray-700 text-base font-bold mb-2">Role</label>
                     <select name="role" id="role" class="rounded-md border-transparent bg-slate-200 w-full focus:outline-none focus:shadow-outline">
+                        <option value=""></option>
                         @foreach($roles as $role)
                             <option value="{{ $role->id }}" class="capitalize">{{ $role->name }}</option>
                         @endforeach
