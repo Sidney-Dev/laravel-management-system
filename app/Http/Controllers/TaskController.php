@@ -90,9 +90,8 @@ class TaskController extends Controller
 
 
         if($email_new_assignee){
-            /**
-             * @todo send notification to the assignee concerning the task assigned to him
-             */    
+            $new_task_assignee = User::find($task->owner_id);
+            $new_task_assignee->notify(new TaskAssigned($task));
         }
         
         return redirect()->back()->withSuccess('Task updated successfully.');

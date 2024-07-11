@@ -7,18 +7,15 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class TaskAssigned extends Notification
+class TaskAssigned extends Notification implements ShouldQueue
 {
     use Queueable;
-
-    public $task;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct($task)
+    public function __construct(public $task)
     {
-        $this->task = $task;
     }
 
     /**
@@ -36,10 +33,12 @@ class TaskAssigned extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
+        $task_assignee = $this->task->owner->name;
         return (new MailMessage)
-            ->line('You have been assigned a new task.')
+            ->greeting("Hi $task_assignee")
+            ->line('You have been assigned a task.')
             ->action('View Task', route('task.show', [$this->task->project->id, $this->task->id]))
-            ->line('Thank you for using our application!');
+            ->line('Your team hopes to hear from you soon!');
     }
 
     /**

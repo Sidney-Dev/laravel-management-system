@@ -10,7 +10,7 @@ use Illuminate\Notifications\Notifiable;
 use App\Models\Project;
 use App\Models\Role;
 
-class User extends Authenticatable// implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
 
