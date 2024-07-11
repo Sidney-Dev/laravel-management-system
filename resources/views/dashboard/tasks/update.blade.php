@@ -52,39 +52,51 @@
                 </div>
             </div>
 
-            <div class="mt-4">
-                <label class="block text-slate-200 text-base font-bold mb-2" for="owner_id">Status</label>
-                <select name="status" id="status" class="block appearance-none w-full bg-slate-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                    <option class="" value="{{ $task->status }}">{{ $task->status }}</option>
-
-                    @if($task->status !== 'pending')
-                        <option value="pending">Pending</option>
-                    @endif
-                    
-                    @if($task->status !== 'in progress')
-                    <option value="in progress">In Progress</option>
-                    @endif
-                    
-                    @if($task->status !== 'in review')
-                        <option value="in review">In Review</option>
-                    @endif
-                    
-                    @if($task->status !== 'done')
-                        <option value="done">Done</option>
-                    @endif
-                    
-                    @if($task->status !== 'needs assistance')
-                        <option value="needs assistance">Needs Assistance</option>
-                    @endif
-                    
-
-                </select>
-                @error('status')
-                    <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
-                @enderror
+            <div class="mt-4 flex gap-1">
+                <div class="w-1/2">
+                    <label class="block text-gray-700 text-base font-bold mb-2" for="owner_id">Status</label>
+                    <select name="status" id="status" class="block appearance-none w-full bg-slate-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                        <option class="" value="{{ $task->status }}">{{ $task->status }}</option>
+    
+                        @if($task->status !== 'pending')
+                            <option value="pending">Pending</option>
+                        @endif
+                        
+                        @if($task->status !== 'in progress')
+                        <option value="in progress">In Progress</option>
+                        @endif
+                        
+                        @if($task->status !== 'in review')
+                            <option value="in review">In Review</option>
+                        @endif
+                        
+                        @if($task->status !== 'done')
+                            <option value="done">Done</option>
+                        @endif
+                        
+                        @if($task->status !== 'needs assistance')
+                            <option value="needs assistance">Needs Assistance</option>
+                        @endif
+                        
+    
+                    </select>
+                    @error('status')
+                        <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div class="w-1/2">
+                    <x-forms.label id="assigneed" label="Assignee" />
+                    <select name="assignee" id="assignee" class="block appearance-none w-full bg-slate-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:border-gray-500">
+                        <option value=""></option>
+                        @foreach ($users as $user)
+                            <option value="{{ $user->id }}" @selected($user->id == $task->owner_id)>{{ $user->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
 
-            <x-forms.input-group 
+            <div class="mt-2">
+                <x-forms.input-group 
                 id="description" 
                 label="Description (optional)" 
                 name="description" 
@@ -93,6 +105,7 @@
                 cols="30" 
                 rows="10"
                 value="{{ $task->description }}" />
+            </div>
 
             <div class="mt-2">
                 <div class="flex items-center">
@@ -100,6 +113,7 @@
                     <x-cta.link-primary text="Back to tasks" link="{{ route('task.index', [$task->project->id]) }}"></x-cta.button-primary>
                 </div>
             </div>
+
         </form>
 
 

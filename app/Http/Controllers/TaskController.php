@@ -46,7 +46,8 @@ class TaskController extends Controller
 
     public function edit(Project $project, Task $task)
     {
-        return view('dashboard.tasks.update', compact('task'));
+        $users = User::all();
+        return view('dashboard.tasks.update', compact('task', 'users'));
     }
 
     // delete a project task
@@ -67,9 +68,31 @@ class TaskController extends Controller
             'start_date' => 'required|date',
             'end_date' => 'required|date|after:start_date',
             'status' => 'required|in:pending,in progress,in review,done,needs assistance',
+            'assignee' => 'nullable'
         ]);
 
-        return $request->all();
+        $email_new_assignee = false;
+
+        $task->name = $validated_task['name'];
+        $task->description = $validated_task['description'];
+        $task->start_date = $validated_task['start_date'];
+        $task->end_date = $validated_task['end_date'];
+        $task->status = $validated_task['status'];
+        $task->owner_id = $validated_task['assignee'];
+
+        if($task->isDirty('owner_id') && !empty($validated_task['assignee'])) {
+            $email_new_assignee = true;
+        }
+
+        if($task->isDirty()) {
+            $task->save();
+        }
+
+
+        if($email_new_assignee){
+            $new_task_assignee = User::find($task->owner_id);
+            $new_task_assignee->notify(new TaskAssigned($task));
+        }
         
         return redirect()->back()->withSuccess('Task updated successfully.');
     }

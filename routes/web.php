@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectsController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -17,6 +18,8 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'verified'])->prefix('dashboard')->group(function() {
     Route::view('/', 'dashboard.index')->name('dashboard');
+
+    Route::resource('users', UserController::class);
 
     Route::prefix('projects')->group(function() {
         Route::get('/', [ProjectsController::class, 'index'])->name('project.index');
