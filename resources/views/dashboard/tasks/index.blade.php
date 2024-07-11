@@ -1,10 +1,20 @@
+@php
+    $roleNames = $userRoles->pluck('name')->toArray();
+    $admin_or_manager = false;
+    if((in_array('admin', $roleNames) || in_array('manager', $roleNames))) {
+        $admin_or_manager = true;
+    }
+@endphp
+
 @extends('layouts.dashboard')
 
 @section('content')
 
 <div class="flex justify-between mb-4 items-center">
     <h1 class="text-[32px] font-bold">Tasks for {{ $project->name }} project</h1>
-    <x-cta.link-primary text="Create Task" link="{{ route('task.create', $project->id) }}" />
+    @if($admin_or_manager)
+        <x-cta.link-primary text="Create Task" link="{{ route('task.create', $project->id) }}" />
+    @endif
 </div>
 
 <div class="main-content bg-white shadow-md rounded-lg p-6">
@@ -33,13 +43,15 @@
                                 <a href="{{ route('task.edit', [$project->id, $task->id]) }}" class="text-green-600 hover:text-blue-800 mr-4">                    
                                     <x-icons.pencil></x-icons.pencil>
                                 </a>
-                                <form class="flex" action="{{ route('task.delete', [$project->id, $task->id]) }}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="text-red-600 hover:text-red-800">
-                                        <x-icons.trash></x-icons.trash>
-                                    </button>
-                                </form>
+                                @if($admin_or_manager)
+                                    <form class="flex" action="{{ route('task.delete', [$project->id, $task->id]) }}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-red-600 hover:text-red-800">
+                                            <x-icons.trash></x-icons.trash>
+                                        </button>
+                                    </form>
+                                @endif
                             </div>
                         </td>
                     </tr>

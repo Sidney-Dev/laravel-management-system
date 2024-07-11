@@ -17,6 +17,7 @@
 
     </head>
     <body class="font-sans antialiased">
+        
             
         <div class="flex h-screen flex-col md:flex-row md:overflow-hidden bg-slate-100">
             <aside class="w-full flex-none md:w-64 m-5 mr-0 p-5 bg-purple-900 rounded-xl">
@@ -28,6 +29,11 @@
                 @session('success')
                     <p class="bg-green-500 text-white rounded-xl mb-2 py-2 px-4">{{ $value }}</p>
                 @endsession
+
+                @session('error')
+                    <p class="bg-red-500 text-white rounded-xl mb-2 py-2 px-4">{{ $value }}</p>
+                @endsession
+
                 <main>
                     @yield('content')
                 </main>
