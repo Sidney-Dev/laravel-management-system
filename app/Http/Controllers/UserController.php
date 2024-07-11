@@ -2,6 +2,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Notifications\AccountCreated;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Role;
 
@@ -27,9 +30,12 @@ class UserController extends Controller
         $user = User::create([
             'name' => $validated_data["name"],
             'email' => $validated_data["email"],
+            'password' => Hash::make(env('DEFAULT_PASSWORD'))
         ]);
 
         $user->roles()->attach($validated_data["role"]);
+
+        $user->notify(new AccountCreated($user));
 
         return redirect()->route('users.index')->with('success', 'User added successfully');
     }
@@ -70,4 +76,15 @@ class UserController extends Controller
 
         return redirect()->route('users.index')->with('success', 'User deleted successfully');
     }
+
+    public function logout(Request $request) {
+        Auth::guard('web')->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/');
+    }
+
 }
