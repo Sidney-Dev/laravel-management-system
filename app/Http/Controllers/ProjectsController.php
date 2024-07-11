@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\ProjectCreation;
 use App\Http\Requests\ProjectUpdate;
 use App\Models\Project;
@@ -10,18 +11,28 @@ use App\Models\Project;
 class ProjectsController extends Controller
 {
 
-
     // displays the form to create a new project
     public function create() {
+
+        $response = Gate::inspect('create', Project::class);
+        if(!$response->allowed()) {
+            return redirect()->route('dashboard')->with('error', 'You cannot create a Project');
+        } 
+
         return view('dashboard.projects.create-project');
     }
 
     // save records of a project
     public function store(ProjectCreation $request) {
 
-        $createdProject = Project::create($request->validated());
+        $response = Gate::inspect('create', Project::class);
+        if(!$response->allowed()) {
+            return redirect()->back()->with('error', 'Invalid permission');
+        } 
 
+        $createdProject = Project::create($request->validated());
         return redirect()->route('project.index')->withSuccess('Project successfully created');
+
     }
 
     // displays all projects
