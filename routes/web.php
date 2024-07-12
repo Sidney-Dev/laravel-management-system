@@ -10,6 +10,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Route::get('/logout', [UserController::class, 'logout'])->name('custom.logout');
 
 Route::middleware('auth')->group(function () {
