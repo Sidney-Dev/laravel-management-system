@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Notifications\AccountCreated;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Role;
@@ -21,6 +22,11 @@ class UserController extends Controller
     // creates a new user
     public function store(Request $request)
     {
+        $can_store = Gate::inspect('create', auth()->user());
+        if(!$can_store->allowed()) {
+            return redirect()->back()->with('error', 'Invalid permission');
+        } 
+
         $validated_data = $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
@@ -51,6 +57,11 @@ class UserController extends Controller
     // updates the user information
     public function update(Request $request, User $user)
     {
+        $can_store = Gate::inspect('update', auth()->user());
+        if(!$can_store->allowed()) {
+            return redirect()->back()->with('error', 'Invalid permission');
+        }
+
         $validated_user = $request->validate([
             'name' => 'required',
             'email' => 'required|email',
@@ -71,6 +82,11 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
+        $can_store = Gate::inspect('delete', auth()->user());
+        if(!$can_store->allowed()) {
+            return redirect()->back()->with('error', 'Invalid permission');
+        } 
+
         $user->roles()->detach();
         $user->delete();
 
