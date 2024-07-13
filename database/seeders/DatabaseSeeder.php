@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\Role;
+use App\Models\Project;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -42,6 +43,8 @@ class DatabaseSeeder extends Seeder
         // fake 10 users where each will be a developer
         User::factory(10)->hasAttached($developer_role)->create();
 
+        // fake 5 posts with 10 tasks each
+        Project::factory(5)->hasTasks(10)->create();
 
     }
 }
