@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Notifications\AccountCreated;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Role;
@@ -21,6 +22,7 @@ class UserController extends Controller
     // creates a new user
     public function store(Request $request)
     {
+        Gate::authorize('create', auth()->user());
         $validated_data = $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
