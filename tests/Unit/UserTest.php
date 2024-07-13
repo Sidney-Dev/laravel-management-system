@@ -20,17 +20,17 @@ class UserTest extends TestCase
 
         $response = $this->actingAs($admin_user)
             ->post("/dashboard/users", [
-                "name" => "Jim",
-                "email" => "jim@example.com",
+                "name" => "Developer",
+                "email" => "developer@example.com",
                 "role" => $admin_role->id,
             ]);
 
         $response->assertRedirect(route('users.index'));
 
         // Assert the user was created
-        $this->assertDatabaseHas('users', ['email' => 'jim@example.com']);
+        $this->assertDatabaseHas('users', ['email' => 'developer@example.com']);
         $this->assertDatabaseHas('role_user', [
-            'user_id' => User::where('email', 'jim@example.com')->first()->id,
+            'user_id' => User::where('email', 'developer@example.com')->first()->id,
             'role_id' => $admin_role->id,
         ]);
     }
