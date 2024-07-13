@@ -16,10 +16,14 @@ class ProjectFactory extends Factory
      */
     public function definition(): array
     {
+
+        $startDate = fake()->dateTimeBetween('now', '+1 year');
+        $endDate = fake()->dateTimeBetween($startDate, (clone $startDate)->modify('+1 year'));
+
         return [
             'name' => fake()->sentence,
-            'start_date' => fake()->dateBetween('now', '+1 year'),
-            'end_date' => fake()->dateBetween('+1 year', '+2 years'),
+            'start_date' => $startDate,
+            'end_date' => $endDate,
             'description' => fake()->paragraphs(3, true),
             'priority' => fake()->randomElement(['low', 'medium', 'urgent']),
         ];
