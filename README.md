@@ -38,10 +38,10 @@ At this point you will need need 3 prompts opened and run the necessary commands
 
 Prompt 3 is where you will run all other commands related to the project.
 
- - php artisan key:gen
+ - <code>php artisan key:gen</code>
  - .env: configure your desired default password for DEFAULT_PASSWORD. Note that you need to create this key as it does not yet exist.
  This will be the password used for your fake admin account.
- - php artisan migrate --seed
+ - <code>php artisan migrate --seed</code>
 
 Note: the password for non admin users is: "password"
 
