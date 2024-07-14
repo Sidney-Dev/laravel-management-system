@@ -26,10 +26,15 @@ Some topics took more emphasis over others due to the tasks that had to be addre
 
 ## USAGE
 
- - clone the repository
- - cd /directory/path (open three prompts)
- - prompt 1: composer install && npm install && npm run dev
- - prompt 2: php artisan serve
+Open your command line(prompt) and tun the following commands from the directory where your projects reside
+
+ - clone the repository (ie: git clone git@github.com:Sidney-Dev/laravel-management-system.git)
+ - cd /directory/path (ie: cd laravel-management-system)
+
+At this point you will need need 3 prompts opened and run the necessary commands and get the application started.
+
+ - prompt 1: <code>composer install && npm install && npm run dev</code>
+ - prompt 2: <code>php artisan serve</code>
 
 Prompt 3 is where you will run all other commands related to the project.
 
@@ -41,4 +46,4 @@ Prompt 3 is where you will run all other commands related to the project.
 Note: the password for non admin users is: "password"
 
 
-#### Get the gist and contribute with   ####
+#### I hope you get the gist  ####
