@@ -39,9 +39,11 @@ class ProjectPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Project $project): bool
+    public function delete(User $user, Project $project): Response
     {
-        //
+        return $user->roles->contains('name', 'admin')
+        ? Response::allow()
+        : Response::deny('Unsufficient permissions. Only the management can create a project.'); 
     }
 
     /**
