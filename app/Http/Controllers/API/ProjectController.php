@@ -71,6 +71,7 @@ class ProjectController extends Controller
 
     /**
      * deletes a single project
+     * Only admins can delete projects
      *
      * @param Request $request
      * @param Project $project
