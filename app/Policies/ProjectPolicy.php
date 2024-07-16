@@ -22,7 +22,9 @@ class ProjectPolicy
      */
     public function view(User $user, Project $project): bool
     {
-        //
+        return $user->roles
+                ? Response::allow()
+                : Response::deny('Unsufficient permissions. Only the management can create a project.');         //
     }
 
     /**
@@ -30,7 +32,6 @@ class ProjectPolicy
      */
     public function create(User $user): Response
     {
-
         return $user->roles->contains('name', 'manager')
                 ? Response::allow()
                 : Response::deny('Unsufficient permissions. Only the management can create a project.'); 
@@ -51,5 +52,5 @@ class ProjectPolicy
     {
         Response::deny('Unsufficient permissions. Only the management can create a project.'); 
     }
-    
+
 }

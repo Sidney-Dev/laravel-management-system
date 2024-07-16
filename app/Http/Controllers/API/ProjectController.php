@@ -21,6 +21,12 @@ class ProjectController extends Controller
 {
     public function index(Request $request)
     {
+        $gate = Gate::inspect('view', $request->user()->id, Project::class);
+        if(!$gate->allowed()) return response()->json([
+            'success' => false,
+            'message' => $gate->message(),
+        ], 403);
+
         $projects = Project::orderBy('id', 'desc')->get();
 
         return response()->json([
